@@ -39,5 +39,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("members.urls")),
     path('',include("topics.urls")),
+    path('',include("rooms.urls")),
     # path('',include(".urls")),
 ]
