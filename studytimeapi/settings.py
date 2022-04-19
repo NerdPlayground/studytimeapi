@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'members',
     'topics',
+    'rooms',
 ]
 
 MIDDLEWARE = [
