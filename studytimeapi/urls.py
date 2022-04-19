@@ -40,5 +40,6 @@ urlpatterns = [
     path('',include("members.urls")),
     path('',include("topics.urls")),
     path('',include("rooms.urls")),
+    path('',include("contributions.urls")),
     # path('',include(".urls")),
 ]
