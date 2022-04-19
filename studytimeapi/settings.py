@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'rest_framework_simplejwt',
     'corsheaders',
     'members',
 ]
@@ -106,6 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK= {
+    'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework_simplejwt.authentication.JWTAuthentication',)
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -142,6 +146,9 @@ SWAGGER_SETTINGS ={
 
 # Allow external access
 CORS_ALLOW_ALL_ORIGINS= True
+
+# Custom user model
+AUTH_USER_MODEL= 'members.Member'
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
