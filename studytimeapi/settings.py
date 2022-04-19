@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'members',
     'topics',
     'rooms',
+    'contributions',
 ]
 
 MIDDLEWARE = [
