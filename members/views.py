@@ -28,16 +28,10 @@ class RegisterAPIView(GenericAPIView):
 class EditMemberAPIView(GenericAPIView):
     permission_classes= [IsAuthenticated]
     serializer_class= EditMemberSerializer
-
-    def get_object(self,pk):
-        try:
-            return Member.objects.get(pk=pk)
-        except Member.DoesNotExist:
-            raise Http404
     
-    def put(self,request,pk):
+    def put(self,request):
         if not request.user.is_staff:
-            member= self.get_object(pk=pk)
+            member= request.user
             serializer= EditMemberSerializer(member,data=request.data)
             if serializer.is_valid():
                 serializer.save()
