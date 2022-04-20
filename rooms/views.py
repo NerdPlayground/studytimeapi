@@ -50,7 +50,7 @@ class IndividualRoomAPIView(GenericAPIView):
 
 class RoomDetailAPIView(GenericAPIView):
     serializer_class= RoomSerializer
-    permission_classes= [IsAdminUser]
+    permission_classes= [IsAuthenticated]
 
     def get_object(self,pk):
         try:
@@ -60,13 +60,25 @@ class RoomDetailAPIView(GenericAPIView):
 
     def put(self,request,pk):
         room= self.get_object(pk=pk)
-        serializer= RoomSerializer(room,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_200_OK)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        if room.host == request.user:
+            serializer= RoomSerializer(room,data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(
+                {"message":"Current user and room host don't match"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
 
     def delete(self,request,pk):
-        room= self.get_object(pk=pk)
-        room.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if room.host is request.user:
+            room= self.get_object(pk=pk)
+            room.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(
+                {"message":"Current user and room host don't match"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
