@@ -9,5 +9,6 @@ urlpatterns= [
     path('all-rooms/',AllRoomsAPIView.as_view(),name="all-rooms"),
     path('my-rooms/',MemberRoomsAPIView.as_view(),name="my-rooms"),
     path('room/<str:pk>/',IndividualRoomAPIView.as_view(),name="individual-room"),
-    path('modify-room/<str:pk>/',RoomDetailAPIView.as_view(),name="modfiy-room")
+    path('edit-room/<str:pk>/',RoomDetailAPIView.as_view(),name="edit-room"),
+    path('delete-room/<str:pk>/',RoomDetailAPIView.as_view(),name="delete-room")
 ]
