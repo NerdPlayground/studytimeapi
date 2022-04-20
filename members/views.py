@@ -12,7 +12,16 @@ class RegisterAPIView(GenericAPIView):
     def post(self, request):
         serializer= RegisterSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            username= request.data.get('username')
+            email= request.data.get('email')
+            password= request.data.get('password')
+
+            user = Member.objects.create_user(
+                username= username,
+                email= email,
+            )
+            user.set_password(password)
+            user.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
