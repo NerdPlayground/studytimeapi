@@ -40,7 +40,7 @@ class EditMemberAPIView(GenericAPIView):
         else:
             return Response(
                 {"message":"Administrator access denied."},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_401_UNAUTHORIZED
             )
 
 class MemberAPIView(GenericAPIView):
@@ -87,5 +87,5 @@ class DeleteAccountAPIView(GenericAPIView):
         else:
             return Response(
                 {"message":"Administrator access denied."},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_401_UNAUTHORIZED
             )
