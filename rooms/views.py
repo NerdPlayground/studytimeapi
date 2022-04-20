@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser
 
 class AddRoomAPIView(GenericAPIView):
     serializer_class= RoomSerializer
-    permission_classes= [IsAdminUser]
+    permission_classes= [IsAuthenticated]
     
     def post(self,request):
         serializer= RoomSerializer(data=request.data)
