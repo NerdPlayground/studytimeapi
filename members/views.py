@@ -75,3 +75,17 @@ class MemberDetailAPIView(GenericAPIView):
         member= self.get_object(pk=pk)
         serializer= MemberSerializer(member)
         return Response(serializer.data,status=status.HTTP_200_OK)
+
+class DeleteAccountAPIView(GenericAPIView):
+    permission_classes= [IsAuthenticated]
+
+    def delete(self,request):
+        if not request.user.is_staff:
+            member= request.user
+            member.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(
+                {"message":"Administrator access denied."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
