@@ -5,7 +5,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model= Member
         fields= ['id','username','email','password']
-        read_only_fields = ['password']
+        write_only_fields = ['password']
 
 class EditMemberSerializer(serializers.ModelSerializer):
     class Meta:
