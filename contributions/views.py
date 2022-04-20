@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser
 
 class AddContributionAPIView(GenericAPIView):
     serializer_class= ContributionSerializer
-    permission_classes= [IsAdminUser]
+    permission_classes= [IsAuthenticated]
 
     def post(self,request):
         serializer= ContributionSerializer(data=request.data)
@@ -44,7 +44,7 @@ class RoomContributionsAPIView(GenericAPIView):
 
 class ContributionDetailAPIView(GenericAPIView):
     serializer_class= ContributionSerializer
-    permission_classes= [IsAdminUser]
+    permission_classes= [IsAuthenticated]
 
     def get_object(self,pk):
         try:
