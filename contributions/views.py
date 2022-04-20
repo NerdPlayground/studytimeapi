@@ -54,13 +54,25 @@ class ContributionDetailAPIView(GenericAPIView):
 
     def put(self,request,pk):
         contribution= self.get_object(pk=pk)
-        serializer= ContributionSerializer(contribution,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_200_OK)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        if contribution.contributor == request.user:
+            serializer= ContributionSerializer(contribution,data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(
+                {"message":"Current user and contributor don't match"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
 
     def delete(self,request,pk):
         contribution= self.get_object(pk=pk)
-        contribution.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if contribution.contributor == request.user:
+            contribution.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(
+                {"message":"Current user and room host don't match"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
