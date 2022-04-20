@@ -74,7 +74,7 @@ class RoomDetailAPIView(GenericAPIView):
 
     def delete(self,request,pk):
         room= self.get_object(pk=pk)
-        if room.host is request.user:
+        if room.host == request.user:
             room.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
