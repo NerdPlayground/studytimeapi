@@ -73,6 +73,6 @@ class ContributionDetailAPIView(GenericAPIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(
-                {"message":"Current user and room host don't match"},
+                {"message":"Current user and contributor don't match"},
                 status=status.HTTP_401_UNAUTHORIZED
             )
