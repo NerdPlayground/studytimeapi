@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import django_heroku
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,6 +153,12 @@ CORS_ALLOW_ALL_ORIGINS= True
 
 # Custom user model
 AUTH_USER_MODEL= 'members.Member'
+
+# Token
+SIMPLE_JWT= {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
+}
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())

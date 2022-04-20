@@ -51,6 +51,7 @@ class EditMemberAPIView(GenericAPIView):
 
 class MemberAPIView(GenericAPIView):
     serializer_class= MemberSerializer
+    permission_classes= [IsAuthenticated]
 
     def get(self,request):
         member= Member.objects.get(id=request.user.id)
