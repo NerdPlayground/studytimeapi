@@ -79,6 +79,6 @@ class RoomDetailAPIView(GenericAPIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(
-                {"message":"Current user and room host don't match"},
+                {"message":"Current user ("+request.user.username+") and room host ("+room.host.username+") don't match"},
                 status=status.HTTP_401_UNAUTHORIZED
             )
