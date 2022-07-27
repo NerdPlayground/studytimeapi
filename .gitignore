@@ -1,5 +1,7 @@
 # Custom
 sketchpad.txt
+database.json
+postgreSQL.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
